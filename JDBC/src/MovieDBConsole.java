@@ -52,7 +52,7 @@ public class MovieDBConsole {
 			statement = connection.createStatement();
 			ResultSet result;
 			
-			System.out.print("Enter Star's Name or ID: ");
+			System.out.print("Enter Star's Name or ID (Name Could Be First Name and/or Last Name): ");
 			if(s.hasNextInt())
 			{
 				System.out.println(1);
@@ -137,46 +137,41 @@ public class MovieDBConsole {
 		}
 	}
 	
-	public void insertAStar()
+	public void insertNewStar()
 	{
-		System.out.print("Enter Star's Name: ");
-		String[] names = s.nextLine().split(" ");
 		String firstName = "";
-		String lastName;
-		if(names.length == 1)
+		String lastName = "";
+		String dob;
+		String photoURL;
+		
+		while(firstName.isEmpty() && lastName.isEmpty())
 		{
-			lastName = names[0];
-		}
-		else if(names.length == 2)
-		{
-			firstName = names[0];
-			lastName = names[1];
-		}
-		else
-		{
-			System.out.println("Please Enter a Valid Name");
-			return;
+			System.out.println("Please Enter Star's First Name and/or Last Name");
+			firstName = promptForString("First Name: ");
+			lastName = promptForString("Last Name: ");
+			if(!firstName.isEmpty() && lastName.isEmpty())
+			{
+				lastName = firstName;
+				firstName = "";
+			}
 		}
 		
-		System.out.print("Enter Star's Date of Birth (YYYY-MM-DD) (Optional): ");
-		String dob = "";
-		dob = s.nextLine();
-		dob = dob == "" ? dob : "1990-01-01"; 
-		
-		System.out.print("Enter Star's Photo URL (Optional): ");
-		String photoURL = "";
-		photoURL = s.nextLine();
+		dob = promptForString("Please Enter Star's Date of Birth (YYYY-MM-DD) (Optional): ");
+		photoURL = promptForString("Please Enter Star's Photo URL (Optional): ");
 		
 		String insertStarSQL = "insert into stars "
 							   + "(first_name, last_name, dob, photo_url) "
-							   + "values ('" + firstName + "', '" + lastName
-							   + "', '" + dob + "', '" + photoURL +"')";
-		
-		Statement statement = null;
-		
+							   + "values ( ?, ?, ?, ?)";
+		PreparedStatement statement = null;
 		try {
-			statement = connection.createStatement();
-			if(statement.executeUpdate(insertStarSQL) == 1)
+			statement = connection.prepareStatement(insertStarSQL);
+			
+			statement.setString(1, firstName);
+			statement.setString(2, lastName);
+			statement.setDate(3, dob.isEmpty() ? null: Date.valueOf(dob));
+			statement.setString(4, photoURL);
+			
+			if(statement.executeUpdate() == 1)
 			{
 				System.out.println("A New Star Inserted Successfully.");
 			}
@@ -184,10 +179,9 @@ public class MovieDBConsole {
 			{
 				System.out.println("Insertion Failed. ");
 			}
-			
-			
 		} catch (SQLException e) {
 			System.out.println(e);
+			System.out.println("Insertion Failed. ");
 		}
 		finally
 		{
@@ -200,6 +194,93 @@ public class MovieDBConsole {
 			}
 		}
 		
-		
 	}
+	
+	public void insertNewCustomer()
+	{
+		String firstName = "";
+		String lastName= "";
+		String creditCardID = "";
+		String address = "";
+		String email = "";
+		String password = "";
+		
+		while(firstName.isEmpty() && lastName.isEmpty())
+		{
+			System.out.println("Please Enter Customer's First Name and/or Last Name");
+			firstName = promptForString("First Name: ");
+			lastName = promptForString("Last Name: ");
+			if(!firstName.isEmpty() && lastName.isEmpty())
+			{
+				lastName = firstName;
+				firstName = "";
+			}
+		}
+		
+		while(creditCardID.isEmpty())
+		{
+			creditCardID = promptForString("Please Enter Customer's Credit Card ID (Required): ");
+		}
+		
+		while(address.isEmpty())
+		{
+			address = promptForString("Please Enter Customer's Address (Required): " );
+		}
+		
+		while(email.isEmpty())
+		{
+			email = promptForString("Please Enter Customer's Email (Required): " );
+		}
+		
+		while(password.isEmpty())
+		{
+			password = promptForString("Please Enter Customer's password (Required): " );
+		}
+		
+		String insertCustomerSQL = "insert into customers "
+				   + "(first_name, last_name, cc_id, address, email, password) "
+				   + "values (?, ?, ?, ?, ?, ?)";
+		PreparedStatement statement = null;
+		try {
+			statement = connection.prepareStatement(insertCustomerSQL);
+			
+			statement.setString(1, firstName);
+			statement.setString(2, lastName);
+			statement.setString(3, creditCardID);
+			statement.setString(4, address);
+			statement.setString(5, email);
+			statement.setString(6, password);
+		
+			if(statement.executeUpdate() == 1)
+			{
+				System.out.println("A New Customer Inserted Successfully.");
+			}
+			else
+			{
+				System.out.println("Insertion Failed. ");
+			}
+		} catch (SQLException e) {
+			System.out.println(e);
+			System.out.println("Insertion Failed. ");
+		}
+		finally
+		{
+			if(statement != null)
+			{
+				try {
+					statement.close();
+				} catch (SQLException e) {
+				}
+			}
+		}
+	}
+	
+	
+	
+	private String promptForString(String prompt)
+	{
+		System.out.print(prompt);
+		return s.nextLine();
+	}
+
 }
