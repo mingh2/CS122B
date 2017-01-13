@@ -7138,3 +7138,120 @@ Caused by: java.lang.NullPointerException
 	at org.cs3.prolog.connector.internal.process.AbstractPrologProcess$MyLifeCycle.startServer(AbstractPrologProcess.java:229)
 	at org.cs3.prolog.connector.internal.lifecycle.InitState$1.run(InitState.java:38)
 	... 1 more
+pdt: WARNING - 13/01 00:06:17 - Prolog Process Default Process Work: pdt: The following Exception was caught:
+org.cs3.prolog.connector.process.PrologProcessException: java.lang.NullPointerException
+	at org.cs3.prolog.connector.internal.lifecycle.InitState$1.run(InitState.java:40)
+	at org.cs3.prolog.connector.internal.lifecycle.LifeCycle$DispatcherThread.run(LifeCycle.java:59)
+Caused by: java.lang.NullPointerException
+	at org.cs3.prolog.connector.internal.process.socket.SocketServerStartAndStopStrategy.initializeBuffers(SocketServerStartAndStopStrategy.java:163)
+	at org.cs3.prolog.connector.internal.process.socket.SocketServerStartAndStopStrategy.startSocketServer(SocketServerStartAndStopStrategy.java:112)
+	at org.cs3.prolog.connector.internal.process.socket.SocketServerStartAndStopStrategy.startServer(SocketServerStartAndStopStrategy.java:100)
+	at org.cs3.prolog.connector.internal.process.AbstractPrologProcess$MyLifeCycle.startServer(AbstractPrologProcess.java:229)
+	at org.cs3.prolog.connector.internal.lifecycle.InitState$1.run(InitState.java:38)
+	... 1 more
+pdt: WARNING - 13/01 00:06:17 - Prolog Process Default Process Work: clearing queue
+pdt: WARNING - 13/01 00:06:17 - Worker-34: pdt: The following Exception was caught:
+org.cs3.prolog.connector.process.PrologProcessException: org.cs3.prolog.connector.process.PrologProcessException: java.lang.NullPointerException
+	at org.cs3.prolog.connector.internal.lifecycle.LifeCycle.waitUntilUp(LifeCycle.java:131)
+	at org.cs3.prolog.connector.internal.process.AbstractPrologProcess.start(AbstractPrologProcess.java:480)
+	at org.cs3.prolog.connector.internal.process.socket.SocketPrologProcess.start(SocketPrologProcess.java:297)
+	at org.cs3.prolog.connector.internal.process.AbstractPrologProcess.restart(AbstractPrologProcess.java:440)
+	at org.cs3.prolog.connector.internal.process.AbstractPrologProcess.getSession(AbstractPrologProcess.java:355)
+	at org.cs3.prolog.connector.internal.process.AbstractPrologProcess.queryAll(AbstractPrologProcess.java:612)
+	at org.cs3.prolog.connector.internal.process.AbstractPrologProcess.queryAll(AbstractPrologProcess.java:585)
+	at org.cs3.pdt.navigator.internal.decorators.PDTConsultDecoratorContributor.fillSetsIfNeeded(PDTConsultDecoratorContributor.java:185)
+	at org.cs3.pdt.navigator.internal.decorators.PDTConsultDecoratorContributor.isCurrent(PDTConsultDecoratorContributor.java:161)
+	at org.cs3.pdt.navigator.internal.decorators.PDTConsultDecoratorContributor.decorate(PDTConsultDecoratorContributor.java:87)
+	at org.eclipse.ui.internal.decorators.LightweightDecoratorDefinition.decorate(LightweightDecoratorDefinition.java:254)
+	at org.eclipse.ui.internal.decorators.LightweightDecoratorManager$LightweightRunnable.run(LightweightDecoratorManager.java:100)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.ui.internal.decorators.LightweightDecoratorManager.decorate(LightweightDecoratorManager.java:383)
+	at org.eclipse.ui.internal.decorators.LightweightDecoratorManager.getDecorations(LightweightDecoratorManager.java:365)
+	at org.eclipse.ui.internal.decorators.DecorationScheduler$1.ensureResultCached(DecorationScheduler.java:367)
+	at org.eclipse.ui.internal.decorators.DecorationScheduler$1.run(DecorationScheduler.java:327)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+Caused by: org.cs3.prolog.connector.process.PrologProcessException: java.lang.NullPointerException
+	at org.cs3.prolog.connector.internal.lifecycle.InitState$1.run(InitState.java:40)
+	at org.cs3.prolog.connector.internal.lifecycle.LifeCycle$DispatcherThread.run(LifeCycle.java:59)
+Caused by: java.lang.NullPointerException
+	at org.cs3.prolog.connector.internal.process.socket.SocketServerStartAndStopStrategy.initializeBuffers(SocketServerStartAndStopStrategy.java:163)
+	at org.cs3.prolog.connector.internal.process.socket.SocketServerStartAndStopStrategy.startSocketServer(SocketServerStartAndStopStrategy.java:112)
+	at org.cs3.prolog.connector.internal.process.socket.SocketServerStartAndStopStrategy.startServer(SocketServerStartAndStopStrategy.java:100)
+	at org.cs3.prolog.connector.internal.process.AbstractPrologProcess$MyLifeCycle.startServer(AbstractPrologProcess.java:229)
+	at org.cs3.prolog.connector.internal.lifecycle.InitState$1.run(InitState.java:38)
+	... 1 more
+pdt: WARNING - 13/01 00:06:23 - Prolog Process Default Process Work: pdt: The following Exception was caught:
+org.cs3.prolog.connector.process.PrologProcessException: java.lang.NullPointerException
+	at org.cs3.prolog.connector.internal.lifecycle.InitState$1.run(InitState.java:40)
+	at org.cs3.prolog.connector.internal.lifecycle.LifeCycle$DispatcherThread.run(LifeCycle.java:59)
+Caused by: java.lang.NullPointerException
+	at org.cs3.prolog.connector.internal.process.socket.SocketServerStartAndStopStrategy.initializeBuffers(SocketServerStartAndStopStrategy.java:163)
+	at org.cs3.prolog.connector.internal.process.socket.SocketServerStartAndStopStrategy.startSocketServer(SocketServerStartAndStopStrategy.java:112)
+	at org.cs3.prolog.connector.internal.process.socket.SocketServerStartAndStopStrategy.startServer(SocketServerStartAndStopStrategy.java:100)
+	at org.cs3.prolog.connector.internal.process.AbstractPrologProcess$MyLifeCycle.startServer(AbstractPrologProcess.java:229)
+	at org.cs3.prolog.connector.internal.lifecycle.InitState$1.run(InitState.java:38)
+	... 1 more
+pdt: WARNING - 13/01 00:06:23 - Prolog Process Default Process Work: clearing queue
+pdt: WARNING - 13/01 00:06:23 - Worker-39: pdt: The following Exception was caught:
+org.cs3.prolog.connector.process.PrologProcessException: org.cs3.prolog.connector.process.PrologProcessException: java.lang.NullPointerException
+	at org.cs3.prolog.connector.internal.lifecycle.LifeCycle.waitUntilUp(LifeCycle.java:131)
+	at org.cs3.prolog.connector.internal.process.AbstractPrologProcess.start(AbstractPrologProcess.java:480)
+	at org.cs3.prolog.connector.internal.process.socket.SocketPrologProcess.start(SocketPrologProcess.java:297)
+	at org.cs3.prolog.connector.internal.process.AbstractPrologProcess.restart(AbstractPrologProcess.java:440)
+	at org.cs3.prolog.connector.internal.process.AbstractPrologProcess.getSession(AbstractPrologProcess.java:355)
+	at org.cs3.prolog.connector.internal.process.AbstractPrologProcess.queryAll(AbstractPrologProcess.java:612)
+	at org.cs3.prolog.connector.internal.process.AbstractPrologProcess.queryAll(AbstractPrologProcess.java:585)
+	at org.cs3.pdt.navigator.internal.decorators.PDTConsultDecoratorContributor.fillSetsIfNeeded(PDTConsultDecoratorContributor.java:185)
+	at org.cs3.pdt.navigator.internal.decorators.PDTConsultDecoratorContributor.isCurrent(PDTConsultDecoratorContributor.java:161)
+	at org.cs3.pdt.navigator.internal.decorators.PDTConsultDecoratorContributor.decorate(PDTConsultDecoratorContributor.java:87)
+	at org.eclipse.ui.internal.decorators.LightweightDecoratorDefinition.decorate(LightweightDecoratorDefinition.java:254)
+	at org.eclipse.ui.internal.decorators.LightweightDecoratorManager$LightweightRunnable.run(LightweightDecoratorManager.java:100)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.ui.internal.decorators.LightweightDecoratorManager.decorate(LightweightDecoratorManager.java:383)
+	at org.eclipse.ui.internal.decorators.LightweightDecoratorManager.getDecorations(LightweightDecoratorManager.java:365)
+	at org.eclipse.ui.internal.decorators.DecorationScheduler$1.ensureResultCached(DecorationScheduler.java:367)
+	at org.eclipse.ui.internal.decorators.DecorationScheduler$1.run(DecorationScheduler.java:327)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+Caused by: org.cs3.prolog.connector.process.PrologProcessException: java.lang.NullPointerException
+	at org.cs3.prolog.connector.internal.lifecycle.InitState$1.run(InitState.java:40)
+	at org.cs3.prolog.connector.internal.lifecycle.LifeCycle$DispatcherThread.run(LifeCycle.java:59)
+Caused by: java.lang.NullPointerException
+	at org.cs3.prolog.connector.internal.process.socket.SocketServerStartAndStopStrategy.initializeBuffers(SocketServerStartAndStopStrategy.java:163)
+	at org.cs3.prolog.connector.internal.process.socket.SocketServerStartAndStopStrategy.startSocketServer(SocketServerStartAndStopStrategy.java:112)
+	at org.cs3.prolog.connector.internal.process.socket.SocketServerStartAndStopStrategy.startServer(SocketServerStartAndStopStrategy.java:100)
+	at org.cs3.prolog.connector.internal.process.AbstractPrologProcess$MyLifeCycle.startServer(AbstractPrologProcess.java:229)
+	at org.cs3.prolog.connector.internal.lifecycle.InitState$1.run(InitState.java:38)
+	... 1 more
+pdt: WARNING - 13/01 00:34:34 - Framework stop: problems during shutdown of process Default Process
+pdt: WARNING - 13/01 00:34:34 - Framework stop: pdt: The following Exception was caught:
+org.cs3.prolog.connector.process.PrologProcessException: org.cs3.prolog.connector.process.PrologProcessException: java.lang.NullPointerException
+	at org.cs3.prolog.connector.internal.process.AbstractPrologProcess.stop(AbstractPrologProcess.java:494)
+	at org.cs3.prolog.connector.internal.process.socket.SocketPrologProcess.stop(SocketPrologProcess.java:266)
+	at org.cs3.pdt.connector.PDTConnectorPlugin.stop(PDTConnectorPlugin.java:234)
+	at org.eclipse.osgi.internal.framework.BundleContextImpl$4.run(BundleContextImpl.java:830)
+	at org.eclipse.osgi.internal.framework.BundleContextImpl$4.run(BundleContextImpl.java:1)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at org.eclipse.osgi.internal.framework.BundleContextImpl.stop(BundleContextImpl.java:823)
+	at org.eclipse.osgi.internal.framework.EquinoxBundle.stopWorker0(EquinoxBundle.java:946)
+	at org.eclipse.osgi.internal.framework.EquinoxBundle$EquinoxModule.stopWorker(EquinoxBundle.java:314)
+	at org.eclipse.osgi.container.Module.doStop(Module.java:636)
+	at org.eclipse.osgi.container.Module.stop(Module.java:498)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.decStartLevel(ModuleContainer.java:1661)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.doContainerStartLevel(ModuleContainer.java:1580)
+	at org.eclipse.osgi.container.SystemModule.stopWorker(SystemModule.java:270)
+	at org.eclipse.osgi.internal.framework.EquinoxBundle$SystemBundle$EquinoxSystemModule.stopWorker(EquinoxBundle.java:147)
+	at org.eclipse.osgi.container.Module.doStop(Module.java:636)
+	at org.eclipse.osgi.container.Module.stop(Module.java:498)
+	at org.eclipse.osgi.container.SystemModule.stop(SystemModule.java:202)
+	at org.eclipse.osgi.internal.framework.EquinoxBundle$SystemBundle$EquinoxSystemModule$1.run(EquinoxBundle.java:165)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.cs3.prolog.connector.process.PrologProcessException: java.lang.NullPointerException
+	at org.cs3.prolog.connector.internal.lifecycle.InitState$1.run(InitState.java:40)
+	at org.cs3.prolog.connector.internal.lifecycle.LifeCycle$DispatcherThread.run(LifeCycle.java:59)
+Caused by: java.lang.NullPointerException
+	at org.cs3.prolog.connector.internal.process.socket.SocketServerStartAndStopStrategy.initializeBuffers(SocketServerStartAndStopStrategy.java:163)
+	at org.cs3.prolog.connector.internal.process.socket.SocketServerStartAndStopStrategy.startSocketServer(SocketServerStartAndStopStrategy.java:112)
+	at org.cs3.prolog.connector.internal.process.socket.SocketServerStartAndStopStrategy.startServer(SocketServerStartAndStopStrategy.java:100)
+	at org.cs3.prolog.connector.internal.process.AbstractPrologProcess$MyLifeCycle.startServer(AbstractPrologProcess.java:229)
+	at org.cs3.prolog.connector.internal.lifecycle.InitState$1.run(InitState.java:38)
+	... 1 more

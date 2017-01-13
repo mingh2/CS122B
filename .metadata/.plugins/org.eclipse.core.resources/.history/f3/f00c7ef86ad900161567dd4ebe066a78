@@ -248,21 +248,11 @@ public class MovieDBConsole {
 			if(result.getInt(1) == 0)
 			{
 				System.out.println("Invalid Credit Card Information. ");
+				return;
 			}
 		} catch (SQLException e1) {
 			System.out.println("Invalid Credit Card Information. ");
-		}
-		finally
-		{
-			if(ccStatement != null)
-			{
-				try {
-					ccStatement.close();
-					return;
-				} catch (SQLException e) {
-					return;
-				}
-			}
+			return;
 		}
 		
 		String insertCustomerSQL = "insert into customers "
@@ -300,15 +290,6 @@ public class MovieDBConsole {
 				try {
 					statement.close();
 				} catch (SQLException e) {
-				}
-			}
-			if(ccStatement != null)
-			{
-				try {
-					ccStatement.close();
-					return;
-				} catch (SQLException e) {
-					return;
 				}
 			}
 		}

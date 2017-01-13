@@ -302,15 +302,6 @@ public class MovieDBConsole {
 				} catch (SQLException e) {
 				}
 			}
-			if(ccStatement != null)
-			{
-				try {
-					ccStatement.close();
-					return;
-				} catch (SQLException e) {
-					return;
-				}
-			}
 		}
 	}
 	

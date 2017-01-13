@@ -236,39 +236,10 @@ public class MovieDBConsole {
 		{
 			password = promptForString("Please Enter Customer's password (Required): " );
 		}
-	
-		String ccIDSQL = "select count(*) from creditcards where id = '" + creditCardID +"'";
-		Statement ccStatement = null;
-		
-		try {
-			ccStatement = connection.createStatement();
-			ResultSet result = ccStatement.executeQuery(ccIDSQL);
-			result.next();
-			
-			if(result.getInt(1) == 0)
-			{
-				System.out.println("Invalid Credit Card Information. ");
-			}
-		} catch (SQLException e1) {
-			System.out.println("Invalid Credit Card Information. ");
-		}
-		finally
-		{
-			if(ccStatement != null)
-			{
-				try {
-					ccStatement.close();
-					return;
-				} catch (SQLException e) {
-					return;
-				}
-			}
-		}
 		
 		String insertCustomerSQL = "insert into customers "
 				   + "(first_name, last_name, cc_id, address, email, password) "
 				   + "values (?, ?, ?, ?, ?, ?)";
-		
 		PreparedStatement statement = null;
 		try {
 			statement = connection.prepareStatement(insertCustomerSQL);
@@ -300,15 +271,6 @@ public class MovieDBConsole {
 				try {
 					statement.close();
 				} catch (SQLException e) {
-				}
-			}
-			if(ccStatement != null)
-			{
-				try {
-					ccStatement.close();
-					return;
-				} catch (SQLException e) {
-					return;
 				}
 			}
 		}

@@ -4,8 +4,7 @@ public class JDBC {
         MovieDBConsole console = new MovieDBConsole();
         
         console.connect();
-//        console.printMoviesWithStars();
-//        console.insertNewStar();
-        console.insertNewCustomer();
+        console.printMoviesWithStars();
+        console.insertAStar();
 	}
 }

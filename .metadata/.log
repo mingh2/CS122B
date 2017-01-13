@@ -865,3 +865,9 @@ Binding(ALT+COMMAND+Q P,
 
 !ENTRY org.eclipse.jface.text 2 0 2017-01-12 23:14:54.697
 !MESSAGE Duplicate template id: 'org.eclipse.wst.xslt.templates.xpath.round'
+
+!ENTRY org.eclipse.launchbar.core 2 0 2017-01-13 00:11:21.362
+!MESSAGE Enablement expression is missing for descriptor type org.eclipse.cdt.debug.core.coreBuildDescriptorType
+
+!ENTRY org.eclipse.launchbar.core 2 0 2017-01-13 00:11:21.363
+!MESSAGE Enablement expression is missing for config provider for org.eclipse.cdt.debug.core.coreBuildDescriptorType
