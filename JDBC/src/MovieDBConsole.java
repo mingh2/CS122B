@@ -409,46 +409,176 @@ public class MovieDBConsole {
 	
 	private void selectCommand(String command) {
 		Statement statement = null;
+		ArrayList<String> attributes = new ArrayList<String>();
 		
 		try {
 			String[] splitCommand = command.split(" ");
-			ArrayList<String> attributes = new ArrayList<String>();
-			
-			for(int i = 0; i < splitCommand.length; ++i) {
+			if(!splitCommand[1].equals("*")) {
 				
-				if(splitCommand[i].toUpperCase().equals("FROM")) {
-					break;
-				}
-				
-				String[] temp = splitCommand[i].split(",");
-				
-				for(int j = 0; j < temp.length; ++j) {
-					if(temp[j].toUpperCase().equals("SELECT")) {
-						continue;
+				for(int i = 0; i < splitCommand.length; ++i) {
+					
+					if(splitCommand[i].toUpperCase().equals("FROM")) {
+						break;
 					}
 					
-					attributes.add(temp[j]);
+					String[] temp = splitCommand[i].split(",");
+					
+					for(int j = 0; j < temp.length; ++j) {
+						if(temp[j].toUpperCase().equals("SELECT")) {
+							continue;
+						}
+						
+						attributes.add(temp[j]);
+					}
 				}
-			}
-			
-			System.out.println();
-			for(int i = 0; i < attributes.size(); ++i) {
-				System.out.format("%-20s", attributes.get(i));
-			}
-			System.out.println();
-			for(int i = 0; i < attributes.size(); ++i) {
-				System.out.print("--------------------");
-			}
-			System.out.println();
-			
-			statement = connection.createStatement();
-			ResultSet result = statement.executeQuery(command);
-			
-			while(result.next()) {
+				
+				statement = connection.createStatement();
+				ResultSet result = statement.executeQuery(command);
+				
+				System.out.println();
 				for(int i = 0; i < attributes.size(); ++i) {
-					System.out.format("%-20s", result.getString(attributes.get(i)));
+					if(attributes.get(i).toLowerCase().equals("address") || attributes.get(i).toLowerCase().equals("title")) {
+						System.out.format("%-50s", attributes.get(i));
+					} else if(attributes.get(i).toLowerCase().equals("id")) {
+						System.out.format("%-8s", attributes.get(i));
+					} else if(attributes.get(i).toLowerCase().equals("first_name") || attributes.get(i).toLowerCase().equals("last_name")) {
+						System.out.format("%-15s", attributes.get(i));
+					} else if(attributes.get(i).toLowerCase().equals("cc_id") || attributes.get(i).toLowerCase().equals("email")) {
+						System.out.format("%-25s", attributes.get(i));
+					} else if(attributes.get(i).toLowerCase().equals("banner_url") || attributes.get(i).toLowerCase().equals("trailer_url")
+							|| attributes.get(i).toLowerCase().equals("photo_url")) {
+						System.out.format("%-150s", attributes.get(i));
+					} else if(attributes.get(i).toLowerCase().equals("director")) {
+						System.out.format("%-40s", attributes.get(i));
+					} else if(attributes.get(i).toLowerCase().equals("year")) {
+						System.out.format("%-6s", attributes.get(i));
+					} else {
+						System.out.format("%-20s", attributes.get(i));
+					}
 				}
 				System.out.println();
+				for(int i = 0; i < attributes.size(); ++i) {
+					if(attributes.get(i).toLowerCase().equals("address") || attributes.get(i).toLowerCase().equals("title")) {
+						System.out.print("--------------------------------------------------");
+					} else if(attributes.get(i).toLowerCase().equals("id")) {
+						System.out.print("--------");
+					} else if(attributes.get(i).toLowerCase().equals("first_name") || attributes.get(i).toLowerCase().equals("last_name")) {
+						System.out.print("---------------");
+					} else if(attributes.get(i).toLowerCase().equals("cc_id") || attributes.get(i).toLowerCase().equals("email")) {
+						System.out.print("-------------------------");
+					} else if(attributes.get(i).toLowerCase().equals("banner_url") || attributes.get(i).toLowerCase().equals("trailer_url")
+							|| attributes.get(i).toLowerCase().equals("photo_url")) {
+						System.out.println("------------------------------------------------------------------------------------------------------------------------------------------------------");
+					} else if(attributes.get(i).toLowerCase().equals("director")) {
+						System.out.println("----------------------------------------");
+					} else if(attributes.get(i).toLowerCase().equals("year")) {
+						System.out.println("------");
+					}else {
+						System.out.print("--------------------");
+					}
+				}
+				System.out.println();
+				
+				while(result.next()) {
+					for(int i = 0; i < attributes.size(); ++i) {
+						if(attributes.get(i).toLowerCase().equals("address") || attributes.get(i).toLowerCase().equals("title")) {
+							System.out.format("%-50s", result.getString(attributes.get(i)));
+						} else if(attributes.get(i).toLowerCase().equals("id")) {
+							System.out.format("%-8s", result.getString(attributes.get(i)));
+						} else if(attributes.get(i).toLowerCase().equals("first_name") || attributes.get(i).toLowerCase().equals("last_name")) {
+							System.out.format("%-15s", result.getString(attributes.get(i)));
+						} else if(attributes.get(i).toLowerCase().equals("cc_id") || attributes.get(i).toLowerCase().equals("email")) {
+							System.out.format("%-25s", result.getString(attributes.get(i)));
+						} else if (attributes.get(i).toLowerCase().equals("banner_url") || attributes.get(i).toLowerCase().equals("trailer_url")
+								|| attributes.get(i).toLowerCase().equals("photo_url")) {
+							System.out.format("%-150s", result.getString(attributes.get(i)));
+						} else if(attributes.get(i).toLowerCase().equals("director")) {
+							System.out.format("%-40s", result.getString(attributes.get(i)));
+						} else if(attributes.get(i).toLowerCase().equals("year")) {
+							System.out.format("%-6s", result.getString(attributes.get(i)));
+						} else {
+							System.out.format("%-20s", result.getString(attributes.get(i)));
+						}
+					}
+					System.out.println();
+				}
+			} else {
+				statement = connection.createStatement();
+				ResultSet result = statement.executeQuery(command);
+				ResultSetMetaData metaResult = result.getMetaData();
+				int colCount = metaResult.getColumnCount();
+				
+				for(int i = 1; i <= colCount; ++i) {
+					attributes.add(metaResult.getColumnName(i));
+				}
+				
+				System.out.println();
+				for(int i = 0; i < attributes.size(); ++i) {
+					if(attributes.get(i).toLowerCase().equals("address") || attributes.get(i).toLowerCase().equals("title")) {
+						System.out.format("%-50s", attributes.get(i));
+					} else if(attributes.get(i).toLowerCase().equals("id")) {
+						System.out.format("%-8s", attributes.get(i));
+					} else if(attributes.get(i).toLowerCase().equals("first_name") || attributes.get(i).toLowerCase().equals("last_name")) {
+						System.out.format("%-15s", attributes.get(i));
+					} else if(attributes.get(i).toLowerCase().equals("cc_id") || attributes.get(i).toLowerCase().equals("email")) {
+						System.out.format("%-25s", attributes.get(i));
+					} else if(attributes.get(i).toLowerCase().equals("banner_url") || attributes.get(i).toLowerCase().equals("trailer_url")
+							|| attributes.get(i).toLowerCase().equals("photo_url")) {
+						System.out.format("%-150s", attributes.get(i));
+					} else if(attributes.get(i).toLowerCase().equals("director")) {
+						System.out.format("%-40s", attributes.get(i));
+					} else if(attributes.get(i).toLowerCase().equals("year")) {
+						System.out.format("%-6s", attributes.get(i));
+					} else {
+						System.out.format("%-20s", attributes.get(i));
+					}
+				}
+				System.out.println();
+				for(int i = 0; i < attributes.size(); ++i) {
+					if(attributes.get(i).toLowerCase().equals("address") || attributes.get(i).toLowerCase().equals("title")) {
+						System.out.print("--------------------------------------------------");
+					} else if(attributes.get(i).toLowerCase().equals("id")) {
+						System.out.print("--------");
+					} else if(attributes.get(i).toLowerCase().equals("first_name") || attributes.get(i).toLowerCase().equals("last_name")) {
+						System.out.print("---------------");
+					} else if(attributes.get(i).toLowerCase().equals("cc_id") || attributes.get(i).toLowerCase().equals("email")) {
+						System.out.print("-------------------------");
+					} else if(attributes.get(i).toLowerCase().equals("banner_url") || attributes.get(i).toLowerCase().equals("trailer_url")
+							|| attributes.get(i).toLowerCase().equals("photo_url")) {
+						System.out.println("------------------------------------------------------------------------------------------------------------------------------------------------------");
+					} else if(attributes.get(i).toLowerCase().equals("director")) {
+						System.out.println("----------------------------------------");
+					} else if(attributes.get(i).toLowerCase().equals("year")) {
+						System.out.println("------");
+					}else {
+						System.out.print("--------------------");
+					}
+				}
+				System.out.println();
+				
+				while(result.next()) {
+					for(int i = 0; i < attributes.size(); ++i) {
+						if(attributes.get(i).toLowerCase().equals("address") || attributes.get(i).toLowerCase().equals("title")) {
+							System.out.format("%-50s", result.getString(attributes.get(i)));
+						} else if(attributes.get(i).toLowerCase().equals("id")) {
+							System.out.format("%-8s", result.getString(attributes.get(i)));
+						} else if(attributes.get(i).toLowerCase().equals("first_name") || attributes.get(i).toLowerCase().equals("last_name")) {
+							System.out.format("%-15s", result.getString(attributes.get(i)));
+						} else if(attributes.get(i).toLowerCase().equals("cc_id") || attributes.get(i).toLowerCase().equals("email")) {
+							System.out.format("%-25s", result.getString(attributes.get(i)));
+						} else if (attributes.get(i).toLowerCase().equals("banner_url") || attributes.get(i).toLowerCase().equals("trailer_url")
+								|| attributes.get(i).toLowerCase().equals("photo_url")) {
+							System.out.format("%-150s", result.getString(attributes.get(i)));
+						} else if(attributes.get(i).toLowerCase().equals("director")) {
+							System.out.format("%-40s", result.getString(attributes.get(i)));
+						} else if(attributes.get(i).toLowerCase().equals("year")) {
+							System.out.format("%-6s", result.getString(attributes.get(i)));
+						} else {
+							System.out.format("%-20s", result.getString(attributes.get(i)));
+						}
+					}
+					System.out.println();
+				}
 			}
 			
 		} catch (SQLException e1) {
