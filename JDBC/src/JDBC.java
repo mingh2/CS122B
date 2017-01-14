@@ -7,5 +7,6 @@ public class JDBC {
 //        console.printMoviesWithStars();
 //        console.insertNewStar();
         console.insertNewCustomer();
+        console.deleteACustomer();
 	}
 }

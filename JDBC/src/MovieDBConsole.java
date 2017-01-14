@@ -35,6 +35,7 @@ public class MovieDBConsole {
 //				System.out.print("Enter Password: ");
 //				String password = s.nextLine();
 				
+//				connection = DriverManager.getConnection("jdbc:mysql:///moviedb", "kevinke", "0000");
 				connection = DriverManager.getConnection("jdbc:mysql:///moviedb", "mytestuser", "mypassword");
 			}
 			catch(SQLException e)
@@ -258,8 +259,8 @@ public class MovieDBConsole {
 			{
 				try {
 					ccStatement.close();
-					return;
 				} catch (SQLException e) {
+					System.out.println("Insertion Failed. [SQLException: Cannot Close \"ccStatement\".]");
 					return;
 				}
 			}
@@ -300,6 +301,7 @@ public class MovieDBConsole {
 				try {
 					statement.close();
 				} catch (SQLException e) {
+					System.out.println("Insertion Failed. [SQLException: Cannot Close \"statement\".]");
 				}
 			}
 			if(ccStatement != null)
@@ -308,6 +310,7 @@ public class MovieDBConsole {
 					ccStatement.close();
 					return;
 				} catch (SQLException e) {
+					System.out.println("Insertion Failed. [SQLException: Cannot Close \"ccStatement\".]");
 					return;
 				}
 			}
@@ -320,6 +323,10 @@ public class MovieDBConsole {
 	{
 		System.out.print(prompt);
 		return s.nextLine();
+	}
+	
+	public void deleteACustomer() {
+		
 	}
 
 }
