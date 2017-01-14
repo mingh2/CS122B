@@ -31,12 +31,6 @@ public class MovieDBConsole {
 			
 			try
 			{
-//				System.out.print("Enter Username: ");
-//				String username = s.nextLine();
-//				
-//				System.out.print("Enter Password: ");
-//				String password = s.nextLine();
-				
 //				connection = DriverManager.getConnection("jdbc:mysql:///moviedb", "kevinke", "0000");
 				connection = DriverManager.getConnection("jdbc:mysql:///moviedb", "mytestuser", "mypassword");
 			}
@@ -312,19 +306,6 @@ public class MovieDBConsole {
 					System.out.println("Failed to close \"statement\". ");
 				}
 			}
-			
-			// The following lines are unnecessary because ccStatement
-			//   is checked to be closed above.
-//			if(ccStatement != null)
-//			{
-//				try {
-//					ccStatement.close();
-//					return;
-//				} catch (SQLException e) {
-//					System.out.println("Failed to close [SQLException: Cannot Close \"ccStatement\".]");
-//					return;
-//				}
-//			}
 		}
 	}
 	
@@ -374,113 +355,31 @@ public class MovieDBConsole {
 				}
 			}
 		}
+	}
+	
+	// Print out the name of each table and, for each table, each attribute and its type.
+	public void printMetadata() {
+		Statement statement = null;
+		String[] listOfTables = {"creditcards", "customers", "genres", "genres_in_movies", 
+									"movies", "sales", "stars", "stars_in_movies"};
 		
-//		String firstName = "";
-//		String lastName= "";
-//		String creditCardID = "";
-//		String address = "";
-//		String email = "";
-//		String password = "";
-//		
-//		while(firstName.isEmpty() && lastName.isEmpty())
-//		{
-//			System.out.println("Please Enter Customer's First Name and/or Last Name");
-//			firstName = promptForString("First Name: ");
-//			lastName = promptForString("Last Name: ");
-//			if(!firstName.isEmpty() && lastName.isEmpty())
-//			{
-//				lastName = firstName;
-//				firstName = "";
-//			}
-//		}
-//		
-//		while(creditCardID.isEmpty())
-//		{
-//			creditCardID = promptForString("Please Enter Customer's Credit Card ID (Required): ");
-//		}
-//		
-//		while(address.isEmpty())
-//		{
-//			address = promptForString("Please Enter Customer's Address (Required): " );
-//		}
-//		
-//		while(email.isEmpty())
-//		{
-//			email = promptForString("Please Enter Customer's Email (Required): " );
-//		}
-//		
-//		while(password.isEmpty())
-//		{
-//			password = promptForString("Please Enter Customer's password (Required): " );
-//		}
-//		
-//		// Check if the credit card information is valid.
-//		String ccIDSQL = "select count(*) from creditcards where id = '" + creditCardID +"'";
-//		Statement ccStatement = null;
-//		
-//		try {
-//			ccStatement = connection.createStatement();
-//			ResultSet result = ccStatement.executeQuery(ccIDSQL);
-//			result.next();
-//			
-//			if(result.getInt(1) == 0)
-//			{
-//				System.out.println("Invalid Credit Card Information. ");
-//			}
-//		} catch (SQLException e1) {
-//			System.out.println("Invalid Credit Card Information. ");
-//		}
-//		finally
-//		{
-//			if(ccStatement != null)
-//			{
-//				try {
-//					ccStatement.close();
-//				} catch (SQLException e) {
-//					System.out.println("Removal Failed. [SQLException in Credit_Card: Cannot Close \"ccStatement\".]");
-//					return;
-//				}
-//			}
-//		} // Finished checking credit card.
-//				
-//		String deleteCustomerSQL = "DELETE FROM customers "
-//				   + "(first_name, last_name, cc_id, address, email, password) "
-//				   + "values (?, ?, ?, ?, ?, ?)";
-//		
-//		PreparedStatement statement = null;
-//		try {
-//			statement = connection.prepareStatement(deleteCustomerSQL);
-//			
-//			statement.setString(1, firstName);
-//			statement.setString(2, lastName);
-//			statement.setString(3, creditCardID);
-//			statement.setString(4, address);
-//			statement.setString(5, email);
-//			statement.setString(6, password);
-//		
-//			if(statement.executeUpdate() == 1)
-//			{
-//				System.out.println("\n>>>>>>>>>> A Customer Deleted Successfully <<<<<<<<<<\n");
-//			}
-//			else
-//			{
-//				System.out.println("Removal Failed. ");
-//			}
-//		}
-//		catch (SQLException e) {
-//			System.out.println(e);
-//			System.out.println("Removal Failed. ");
-//		}
-//		finally
-//		{
-//			if(statement != null)
-//			{
-//				try {
-//					statement.close();
-//				} catch (SQLException e) {
-//				}
-//			}
-//		}
+		System.out.println ("TableName               ColumnName     Type  ");
+        System.out.println ("---------------------------------------------------------");
+        
+		for(int i = 0; i < listOfTables.length; ++i) {
+			try {
+				statement = connection.createStatement();
+				ResultSet result = statement.executeQuery("SELECT * FROM " + listOfTables[i]);
+				ResultSetMetaData metaResult = result.getMetaData();
+				int colCount = metaResult.getColumnCount();
+				
+				for(int j = 1; j <= colCount; ++j) {
+					System.out.format("%-24s%-15s%s\n", listOfTables[i], metaResult.getColumnName(j), metaResult.getColumnTypeName(j));
+				}
+			} catch (SQLException e) {
+				System.out.println(e);
+			}
+		}
 	}
 
 }
