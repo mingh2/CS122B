@@ -1,4 +1,5 @@
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MovieDBConsole {
@@ -6,6 +7,12 @@ public class MovieDBConsole {
 	private Connection connection;
 	private Scanner s;
 
+	private String promptForString(String prompt)
+	{
+		System.out.print(prompt);
+		return s.nextLine();
+	}
+	
 	public MovieDBConsole()
 	{
 		System.out.println(">>>>>>>>>> Welcome to MovieDB <<<<<<<<<<\n");
@@ -309,14 +316,6 @@ public class MovieDBConsole {
 		}
 	}
 	
-	
-	
-	private String promptForString(String prompt)
-	{
-		System.out.print(prompt);
-		return s.nextLine();
-	}
-	
 	public void deleteACustomer() {
 		System.out.println("\n>>>>>>>>>> Removing A Customer <<<<<<<<<<\n");
 		
@@ -381,5 +380,105 @@ public class MovieDBConsole {
 			}
 		}
 	}
+	
+	public void respondToValidCommand() {
+		System.out.println("\n>>>>>>>>>> Entering A Valid Command <<<<<<<<<<\n");
+		
+		String command = "";
+		int flag = 0;
+		while(flag == 0) {
+			command = promptForString("Please enter a command for the database: ");
 
+			if(command.substring(0, 6).toUpperCase().equals("SELECT")) {
+				selectCommand(command);
+				++flag;
+			} else if (command.substring(0, 6).toUpperCase().equals("DELETE")) {
+				deleteCommand(command);
+				++flag;
+			} else if (command.substring(0, 6).toUpperCase().equals("UPDATE")) {
+				updateCommand(command);
+				++flag;
+			} else if (command.substring(0, 6).toUpperCase().equals("INSERT")) {
+				insertCommand(command);
+				++flag;
+			} else {
+				System.out.println("\nSorry. Invalid Command. Please try again.\n");
+			}
+		}
+	}
+	
+	private void selectCommand(String command) {
+		Statement statement = null;
+		
+		try {
+			String[] splitCommand = command.split(" ");
+			ArrayList<String> attributes = new ArrayList<String>();
+			
+			for(int i = 0; i < splitCommand.length; ++i) {
+				
+				if(splitCommand[i].toUpperCase().equals("FROM")) {
+					break;
+				}
+				
+				String[] temp = splitCommand[i].split(",");
+				
+				for(int j = 0; j < temp.length; ++j) {
+					if(temp[j].toUpperCase().equals("SELECT")) {
+						continue;
+					}
+					
+					attributes.add(temp[j]);
+				}
+			}
+			
+			System.out.println();
+			for(int i = 0; i < attributes.size(); ++i) {
+				System.out.format("%-20s", attributes.get(i));
+			}
+			System.out.println();
+			for(int i = 0; i < attributes.size(); ++i) {
+				System.out.print("--------------------");
+			}
+			System.out.println();
+			
+			statement = connection.createStatement();
+			ResultSet result = statement.executeQuery(command);
+			
+			while(result.next()) {
+				for(int i = 0; i < attributes.size(); ++i) {
+					System.out.format("%-20s", result.getString(attributes.get(i)));
+				}
+				System.out.println();
+			}
+			
+		} catch (SQLException e1) {
+			System.out.println("Invalid Command. [SQLException]");
+		}
+		finally
+		{
+			if(statement != null)
+			{
+				try {
+					statement.close();
+				} catch (SQLException e) {
+					System.out.println("Failed to close \"statement\".");
+					return;
+				}
+			}
+		}
+		
+		System.out.println("\n>>>>>>>>>> Finished the SELECT Mission <<<<<<<<<<\n");
+	}
+
+	private void deleteCommand(String command) {
+		
+	}
+	
+	private void updateCommand(String command) {
+		
+	}
+	
+	private void insertCommand(String command) {
+		
+	}
 }

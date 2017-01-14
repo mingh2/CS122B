@@ -8,6 +8,7 @@ public class JDBC {
 //        console.insertNewStar();
 //        console.insertNewCustomer();
 //        console.deleteACustomer();
-        console.printMetadata();
+//        console.printMetadata();
+        console.respondToValidCommand();
 	}
 }
