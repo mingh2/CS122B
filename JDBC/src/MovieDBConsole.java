@@ -13,6 +13,10 @@ public class MovieDBConsole {
 		return s.nextLine();
 	}
 	
+	public void resetConnection() {
+		connection = null;
+	}
+	
 	public MovieDBConsole()
 	{
 		System.out.println(">>>>>>>>>> Welcome to MovieDB <<<<<<<<<<\n");
@@ -20,7 +24,7 @@ public class MovieDBConsole {
 		s = new Scanner(System.in);
 	}
 	
-	public int connect()
+	public void connect()
 	{
 		System.out.println("\n>>>>>>>>>> Connecting to the Database... <<<<<<<<<<\n");
 		try
@@ -30,7 +34,7 @@ public class MovieDBConsole {
 		catch(Exception e)
 		{
 			System.out.println("Failed to Instantiate a New JDBC Driver. Please Try Again Later.");
-			return 0;
+			return;
 		}
 		
 		while(connection == null)
@@ -38,19 +42,11 @@ public class MovieDBConsole {
 			
 			try
 			{
-				System.out.print("Enter Username (Type \"exit\" to quit the program): ");
+				System.out.print("Enter Username: ");
 				String username = s.nextLine();
-				if(username.toLowerCase().equals("exit")) {
-					System.out.println("Have a good day!");
-					return 0;
-				}
 				
-				System.out.print("Enter Password (Type \"exit\" to quit the program): ");
+				System.out.print("Enter Password: ");
 				String password = s.nextLine();
-				if(password.toLowerCase().equals("exit")) {
-					System.out.println("Have a good day!");
-					return 0;
-				}
 				
 				connection = DriverManager.getConnection("jdbc:mysql:///moviedb", username, password);
 //				connection = DriverManager.getConnection("jdbc:mysql:///moviedb", "kevinke", "0000");
@@ -62,7 +58,6 @@ public class MovieDBConsole {
 			}
 		}
 		System.out.println("\n>>>>>>>>>> Connected Successfully <<<<<<<<<<\n");
-		return 1;
 	}
 	
 	public void printMoviesWithStars()
