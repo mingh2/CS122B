@@ -20,7 +20,7 @@ public class MovieDBConsole {
 		s = new Scanner(System.in);
 	}
 	
-	public void connect()
+	public int connect()
 	{
 		System.out.println("\n>>>>>>>>>> Connecting to the Database... <<<<<<<<<<\n");
 		try
@@ -30,7 +30,7 @@ public class MovieDBConsole {
 		catch(Exception e)
 		{
 			System.out.println("Failed to Instantiate a New JDBC Driver. Please Try Again Later.");
-			return;
+			return 0;
 		}
 		
 		while(connection == null)
@@ -38,15 +38,31 @@ public class MovieDBConsole {
 			
 			try
 			{
+				System.out.print("Enter Username (Type \"exit\" to quit the program): ");
+				String username = s.nextLine();
+				if(username.toLowerCase().equals("exit")) {
+					System.out.println("Have a good day!");
+					return 0;
+				}
+				
+				System.out.print("Enter Password (Type \"exit\" to quit the program): ");
+				String password = s.nextLine();
+				if(password.toLowerCase().equals("exit")) {
+					System.out.println("Have a good day!");
+					return 0;
+				}
+				
+				connection = DriverManager.getConnection("jdbc:mysql:///moviedb", username, password);
 //				connection = DriverManager.getConnection("jdbc:mysql:///moviedb", "kevinke", "0000");
-				connection = DriverManager.getConnection("jdbc:mysql:///moviedb", "mytestuser", "mypassword");
+//				connection = DriverManager.getConnection("jdbc:mysql:///moviedb", "mytestuser", "mypassword");
 			}
 			catch(SQLException e)
 			{
 				System.out.println("Invalid Username and/or Password. Try Again.");
 			}
 		}
-		System.out.println("\n>>>>>>>>>> Connect Successfully <<<<<<<<<<\n");
+		System.out.println("\n>>>>>>>>>> Connected Successfully <<<<<<<<<<\n");
+		return 1;
 	}
 	
 	public void printMoviesWithStars()
@@ -582,7 +598,8 @@ public class MovieDBConsole {
 			}
 			
 		} catch (SQLException e1) {
-			System.out.println("Invalid Command. [SQLException]");
+			System.out.println(e1.getMessage());
+			System.out.println("Invalid Select SQL Command. [SQLException]");
 		}
 		finally
 		{
@@ -601,14 +618,87 @@ public class MovieDBConsole {
 	}
 
 	private void deleteCommand(String command) {
+		Statement statement = null;
+		try {
+			statement = connection.createStatement();
+			int count = statement.executeUpdate(command);
+			if(count > 1) {
+				System.out.println("Deleted " + count + " instances from " + command.split(" ")[2] + " successfully.");
+			} else if(count == 1) {
+				System.out.println("Deleted " + count + " instance from " + command.split(" ")[2] + " successfully.");
+			} else {
+				System.out.println("No instance found.");
+			}
+		} catch(SQLException e) {
+			System.out.println(e.getMessage());
+			System.out.println("Invalid Delete SQL Command.");
+		} finally {
+			if(statement != null) {
+				try {
+					statement.close();
+				} catch (SQLException e) {
+					System.out.println("Failed to close \"statement\".");
+					return;
+				}
+			}
+		}
 		
+		System.out.println("\n>>>>>>>>>> Finished the DELETE Mission <<<<<<<<<<\n");
 	}
 	
 	private void updateCommand(String command) {
+		Statement statement = null;
 		
+		try {
+			statement = connection.createStatement();
+			int count = statement.executeUpdate(command);
+			if(count > 1) {
+				System.out.println("Updated " + count + " instances from " + command.split(" ")[1] + " successfully.");
+			} else if(count == 1) {
+				System.out.println("Updated " + count + " instance from " + command.split(" ")[1] + " successfully.");
+			} else {
+				System.out.println("No instance found.");
+			}
+		} catch(SQLException e) {
+			System.out.println(e.getMessage());
+			System.out.println("Invalid Update SQL Command.");
+		} finally {
+			if(statement != null) {
+				try {
+					statement.close();
+				} catch (SQLException e) {
+					System.out.println("Failed to close \"statement\".");
+					return;
+				}
+			}
+		}
+		
+		System.out.println("\n>>>>>>>>>> Finished the UPDATE Mission <<<<<<<<<<\n");
 	}
 	
 	private void insertCommand(String command) {
+		Statement statement = null;
 		
+		try {
+			statement = connection.createStatement();
+			int flag = statement.executeUpdate(command);
+			if(flag != 0) {
+				System.out.println("Inserted an instance into " + command.split(" ")[2] + " successfully.");
+			}
+		} catch(SQLException e) {
+			System.out.println(e.getMessage());
+			System.out.println("Invalid Insert SQL Command.");
+		} finally {
+			if(statement != null) {
+				try {
+					statement.close();
+				} catch (SQLException e) {
+					System.out.println("Failed to close \"statement\".");
+					return;
+				}
+			}
+		}
+		
+		System.out.println("\n>>>>>>>>>> Finished the INSERT Mission <<<<<<<<<<\n");
 	}
 }
