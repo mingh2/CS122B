@@ -1,4 +1,5 @@
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MovieDBConsole {
@@ -23,7 +24,7 @@ public class MovieDBConsole {
 		s = new Scanner(System.in);
 	}
 	
-	public int connect()
+	public void connect()
 	{
 		System.out.println("\n>>>>>>>>>> Connecting to the Database... <<<<<<<<<<\n");
 		try
@@ -33,7 +34,7 @@ public class MovieDBConsole {
 		catch(Exception e)
 		{
 			System.out.println("Failed to Instantiate a New JDBC Driver. Please Try Again Later.");
-			return 0;
+			return;
 		}
 		
 		while(connection == null)
@@ -48,7 +49,8 @@ public class MovieDBConsole {
 				String password = s.nextLine();
 				
 				connection = DriverManager.getConnection("jdbc:mysql:///moviedb", username, password);
-
+//				connection = DriverManager.getConnection("jdbc:mysql:///moviedb", "kevinke", "0000");
+//				connection = DriverManager.getConnection("jdbc:mysql:///moviedb", "mytestuser", "mypassword");
 			}
 			catch(SQLException e)
 			{
@@ -56,7 +58,6 @@ public class MovieDBConsole {
 			}
 		}
 		System.out.println("\n>>>>>>>>>> Connected Successfully <<<<<<<<<<\n");
-		return 1;
 	}
 	
 	public void printMoviesWithStars()

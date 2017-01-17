@@ -1,6 +1,8 @@
+create database if not exists moviedb;
+
 use moviedb;
 
-create table movies(
+create table if not exists movies(
 	id integer not null primary key auto_increment,
     title varchar(100) not null,
     year int not null,
@@ -9,7 +11,7 @@ create table movies(
     trailer_url varchar(200) default ""
 );
 
-create table stars(
+create table if not exists stars(
 	id integer not null primary key auto_increment,
 	first_name varchar(50) not null,
 	last_name varchar(50) not null,
@@ -17,33 +19,33 @@ create table stars(
 	photo_url varchar(200) default ""
 );
 
-create table stars_in_movies(
+create table if not exists stars_in_movies(
 	star_id integer not null,
     movie_id integer not null,
     foreign key (star_id) references stars(id),
     foreign key (movie_id) references movies(id)
 );
 
-create table genres(
+create table if not exists genres(
 	id integer not null primary key auto_increment,
 	name varchar(32) not null
 );
 
-create table genres_in_movies(
+create table if not exists genres_in_movies(
 	genre_id integer not null,
     movie_id integer not null,
     foreign key (genre_id) references genres(id),
     foreign key (movie_id) references movies(id)
 );
 
-create table creditcards(
+create table if not exists creditcards(
 	id varchar(20) not null primary key,
 	first_name varchar(50) not null, 
 	last_name varchar(50) not null,
 	expiration date not null
 );
 
-create table customers(
+create table if not exists customers(
 	id integer not null primary key auto_increment,
     first_name varchar(50) not null,
     last_name varchar(50) not null,
@@ -54,7 +56,7 @@ create table customers(
     foreign key (cc_id) references creditcards(id)
 );
 
-create table sales(
+create table if not exists sales(
 	id integer not null primary key auto_increment,
     customer_id integer not null,
     movie_id integer not null,
