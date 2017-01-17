@@ -6,26 +6,30 @@ public class JDBC {
 	{
         MovieDBConsole console = new MovieDBConsole();
         Scanner s = new Scanner(System.in);
-        int outterFlag = 0;
         
         do {
-	        System.out.print("Connect to the database? (y/n): ");
+        	System.out.println("[1] Login MovieDB;");
+    		System.out.println("[2] Exit MovieDB.\n");
+    		System.out.print("Enter a command: ");
+    		
 	        String command = s.nextLine();
 
-	        if(command.toLowerCase().equals("y")) {
+	        if(command.toLowerCase().equals("1")) {
 	        	int flag = 0;
 	        	console.connect();
 	        	do {
 	        		System.out.println("\n***** MENU *****\n");
-	        		System.out.println("[1] Search Movies Info by Looking at Stars;");
-	        		System.out.println("[2] Insert a Star instance;");
-	        		System.out.println("[3] Insert a Customer instance;");
-	        		System.out.println("[4] Delete a customer instance;");
-	        		System.out.println("[5] Show Metadata of MovieDB;");
-	        		System.out.println("[6] Create Your Own Command;");
-	        		System.out.println("[7] Exit MovieDB.\n");
-	        		System.out.print("Your Action: ");
+	        		System.out.println("[1] Search Movies Info by Star;");
+	        		System.out.println("[2] Insert a Star;");
+	        		System.out.println("[3] Insert a Customer;");
+	        		System.out.println("[4] Delete a Customer;");
+	        		System.out.println("[5] Show MovieDB Metadata;");
+	        		System.out.println("[6] Execute a SQL Command;");
+	        		System.out.println("[7] Logout MovieDB;");
+	        		System.out.println("[8] Exit MovieDB.\n");
+	        		System.out.print("Enter a command: ");
 	        		String action = s.nextLine();
+	        		
 	        		
 	        		if(action.equals("1")) {
 	        			console.printMoviesWithStars();
@@ -40,8 +44,12 @@ public class JDBC {
 	        		} else if(action.equals("6")) {
 	        			console.respondToValidCommand();
 	        		} else if(action.equals("7")) {
-	        			System.out.println("\n>>>>>>>>>> Exiting from MovieDB... <<<<<<<<<<");
+	        			System.out.println("\n>>>>>>>>>> Loging Out... <<<<<<<<<<");
 	        			++flag;
+	        		}else if(action.equals("8")) {
+	        			System.out.println("\n>>>>>>>>>> Exiting from MovieDB... <<<<<<<<<<");
+	    	        	System.out.println("\nHave a good day! <3");
+	        			return;
 	        		} else {
 	        			System.out.println("\nInvalid Action ID. Please Try Again.");
 	        		}
@@ -50,15 +58,14 @@ public class JDBC {
 	        	System.out.println("\nByebye MovieDB!\n");
 	        	console.resetConnection();
 	        	
-	        } else if(command.toLowerCase().equals("n")){
-	        	System.out.println("\n>>>>>>>>>> Exiting the program... <<<<<<<<<<");
+	        } else if(command.toLowerCase().equals("2")){
+	        	System.out.println("\n>>>>>>>>>> Exiting from MovieDB... <<<<<<<<<<");
 	        	System.out.println("\nHave a good day! <3");
-	        	++outterFlag;
 	        	s.close();
 	        	return;
 	        } else {
 	        	System.out.println("\nInvalid Input. Please Try Again.\n");
 	        }
-        } while (outterFlag == 0);
+        } while (true);
 	}
 }
