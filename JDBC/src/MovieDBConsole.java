@@ -52,6 +52,7 @@ public class MovieDBConsole {
 			}
 			catch(SQLException e)
 			{
+				System.out.println(e);
 				System.out.println("Invalid Username and/or Password. Try Again.");
 			}
 		}
@@ -278,10 +279,8 @@ public class MovieDBConsole {
 			{
 				try {
 					ccStatement.close();
-					return;
 				} catch (SQLException e) {
 					System.out.println("[SQLException: Cannot Close \"ccStatement\".]");
-					return;
 				}
 			}
 		} // Finished checking credit card.
